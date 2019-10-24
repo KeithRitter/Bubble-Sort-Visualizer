@@ -13,7 +13,7 @@ namespace BubbleSortVisualizer
 
         public void StartingInput()
         {
-            Console.WriteLine("Please input numbers to sort, seperated by a space.");
+            Console.WriteLine("Please input numbers to sort, separated by a space.");
             var input = Console.ReadLine();
 
             var numsS = input.Split(' ');
@@ -46,18 +46,16 @@ namespace BubbleSortVisualizer
                     int held = 0;
                     var numA = arr[n];
                     var numB = arr[n + 1];
-                    if (numA < numB)
-                    {
-                        held = numA;
-                        arr[n] = arr[n + 1];
-                        arr[n + 1] = held;
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine($"{numA} is < {numB}. Moving {numB} up.\n");
-                        Console.ResetColor();
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine($"Updated array:\n{string.Join(", ", arr)}\n");
-                        Console.ResetColor();
-                    }
+                    if (numA >= numB) continue;
+                    held = numA;
+                    arr[n] = arr[n + 1];
+                    arr[n + 1] = held;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"{numA} is < {numB}. Moving {numB} up.\n");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine($"Updated array:\n{string.Join(", ", arr)}\n");
+                    Console.ResetColor();
                 }
             }
             Console.WriteLine($"Finished sorting.\nFinal result: {string.Join(", ", arr)}");
@@ -82,7 +80,7 @@ namespace BubbleSortVisualizer
 
         public void InvalidInput()
         {
-            Console.WriteLine("Your input was invalid. Your input must be all numbers seperated by a space.\n");
+            Console.WriteLine("Your input was invalid. Your input must be all numbers separated by a space.\n");
             StartingInput();
         }
     }
