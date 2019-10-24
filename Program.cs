@@ -20,7 +20,7 @@ namespace BubbleSortVisualizer
 
             var nums = new List<int>();
 
-            foreach (var entry in numsS)                    // Parses each input as an integer and adds it to the sorted list
+            foreach (var entry in numsS)
             {
                 if (!int.TryParse(entry, out var num))
                 {
@@ -29,44 +29,54 @@ namespace BubbleSortVisualizer
                 nums.Add(num);
             }
 
+            var numsA = nums.ToArray();
             Console.WriteLine("\nInput:");
-            Console.WriteLine($"> {string.Join("\n> ", nums)}\n");
-            SortInput(nums);
+            Console.WriteLine($"{string.Join(", ", numsA)}\n");
+            SortInput(numsA);
         }
 
-        public void SortInput(List<int> nums)
+        public void SortInput(int[] arr)
         {
-            var sList = new SortedList<int, int>();
-            int step = 0;
 
-            for (int i = 0; i < nums.Count; i++)           // Begins sorting by comparing the value to position and dropping it down if need be. "Sinking Sort", "Bubble Sort"
+            // for 1 repeats for 2 so the array is entirely
+            for (int i = 0; i < arr.Count() - 1; i++)
             {
-                var num = nums[i];
-                int posA = 0;                              // Position in list
-                int posB = 0;                              // Where to place the current value
-                while (posA < nums.Count)
+                for (int n = 0; n < arr.Count() - 1; n++)
                 {
-                    if (num < nums[posA])
+                    int held = 0;
+                    var numA = arr[n];
+                    var numB = arr[n + 1];
+                    if (numA < numB)
                     {
-                        posB++;
+                        held = numA;
+                        arr[n] = arr[n + 1];
+                        arr[n + 1] = held;
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine($"{numA} is < {numB}. Moving {numB} up.\n");
+                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine($"Updated array:\n{string.Join(", ", arr)}\n");
+                        Console.ResetColor();
                     }
-                    posA++;
                 }
-                sList.Add(posB, num);
-                step++;
-                Console.WriteLine($"Step: {step}\n> {string.Join("\n> ", sList.Values)}\n");
             }
+            Console.WriteLine($"Finished sorting.\nFinal result: {string.Join(", ", arr)}");
+            FinalDisplay(arr);
+        }
 
+        public void FinalDisplay(int[] arr)
+        {
+            var ascending = string.Join(", ", arr);
+            var descending = string.Join(", ", arr.Reverse());
             Console.Write("Descending: ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"{string.Join(", ", sList.Values)} ");
+            Console.Write($"{ascending} ");
             Console.ResetColor();
+            Console.Write("| ");
             Console.Write("Ascending: ");
             Console.ForegroundColor = ConsoleColor.Red;
-            var reversed = sList.Reverse();
-            Console.WriteLine($"{string.Join(", ", reversed.Select(x => x.Value))}\n");
+            Console.WriteLine($"{descending}\n");
             Console.ResetColor();
-
             StartingInput();
         }
 
