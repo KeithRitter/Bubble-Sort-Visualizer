@@ -46,6 +46,9 @@ namespace BubbleSortVisualizer
                     int held = 0;
                     var numA = arr[n];
                     var numB = arr[n + 1];
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine($"Comparing {numA} and {numB}");
+                    Console.ResetColor();
                     if (numA >= numB) continue;
                     held = numA;
                     arr[n] = arr[n + 1];
@@ -64,16 +67,9 @@ namespace BubbleSortVisualizer
 
         public void FinalDisplay(int[] arr)
         {
-            var ascending = string.Join(", ", arr);
-            var descending = string.Join(", ", arr.Reverse());
-            Console.Write("Descending: ");
+            Console.Write("Result: ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"{ascending} ");
-            Console.ResetColor();
-            Console.Write("| ");
-            Console.Write("Ascending: ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{descending}\n");
+            Console.Write($"{string.Join(" ", arr)} ");
             Console.ResetColor();
             StartingInput();
         }
